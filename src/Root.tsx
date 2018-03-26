@@ -19,7 +19,7 @@ export default class MyAwesomeProject extends React.Component<object, object> {
           Welcome to React Native in TypeScript!
         </Text>
       </View>
-    );
+    )
   }
 }
 
