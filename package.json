@@ -1,0 +1,49 @@
+{
+		"name": "RNWTypeScript",
+		"version": "0.0.1",
+		"private": true,
+		"scripts": {
+				"clean": "rimraf build",
+				"start": "concurrently \"node node_modules/react-native/local-cli/cli.js start\" \"tsc -w\" --kill-others --prefix \"[{name}]\" --names \"react-native,tsc\"",
+				"tsc": "tsc",
+				"test": "jest",
+				"tslint": "tslint 'src/**/*.ts{,x}' -e 'src/@types/**/*.d.ts'",
+				"build": "npm run clean && npm run tsc && npm run tslint",
+				"ios": "react-native run-ios --simulator \"iPad Air 2\"",
+				"iphone": "react-native run-ios --simulator \"iPhone 6s\"",
+				"create-assets-folder": "node -e \"try { fs.mkdirSync('./windows/MobilePos/ReactAssets') } catch (err) { if (err.code !== 'EEXIST') throw err }\"",
+				"create-android-assets-folder": "node -e \"try { fs.mkdirSync('./android/app/src/main/Assets') } catch (err) { if (err.code !== 'EEXIST') throw err }\"",
+				"bundle-android": "npm run build && npm run create-android-assets-folder && node node_modules/react-native/local-cli/cli.js bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/",
+				"bundle-ios": "npm run build && node node_modules/react-native/local-cli/cli.js bundle --platform ios --dev false --entry-file index.js --bundle-output ios/main.jsbundle --assets-dest ios",
+				"bundle-windows": "npm run build && npm run create-assets-folder && node node_modules/react-native/local-cli/cli.js bundle --platform windows --entry-file index.js --bundle-output windows/MobilePos/ReactAssets/index.windows.bundle --assets-dest windows/MobilePos/ReactAssets --dev=false",
+				"debug": "open rndebugger://set-debugger-loc?host=localhost&port=8081"
+		},
+		"dependencies": {
+				"react": "16.3.0-alpha.1",
+				"react-native": "0.54.2",
+				"react-native-windows": "0.54.0-rc.1"
+		},
+		"devDependencies": {
+				"@types/react": "^16.0.41",
+				"@types/react-native": "^0.52.19",
+				"babel-eslint": "^7.1.1",
+				"babel-jest": "22.4.3",
+				"babel-preset-react-native": "4.0.0",
+				"concurrently": "^3.4.0",
+				"eslint": "^3.16.0",
+				"eslint-config-airbnb": "^14.1.0",
+				"eslint-plugin-import": "^2.2.0",
+				"eslint-plugin-jsx-a11y": "^4.0.0",
+				"eslint-plugin-react": "^6.10.0",
+				"jest": "22.4.3",
+				"react-test-renderer": "16.3.0-alpha.1",
+				"rimraf": "^2.6.1",
+				"rnpm-plugin-windows": "^0.2.8",
+				"tslint": "^5.5.0",
+				"tslint-react": "^3.4.0",
+				"typescript": "2.5.3"
+		},
+		"jest": {
+				"preset": "react-native"
+		}
+}
